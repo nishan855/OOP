@@ -1,0 +1,84 @@
+max_int for my machine (between 20 and 30 second runtime without threads):
+
+Without threads: 7000000
+
+Without threads:
+time (./primes `arg="0 7000000" && echo ${arg:-1 10000000}` > primes.txt)
+
+real	0m25.696s
+user	0m25.202s
+sys	0m0.044s
+
+
+
+
+With 2 threads:
+
+time (./primes `arg="2 7000000" && echo ${arg:-1 10000000}` > primes.txt)
+
+real	0m24.420s
+user	0m24.327s
+sys	0m0.020s
+
+
+
+With 4 threads:
+
+time (./primes `arg="4 7000000" && echo ${arg:-1 10000000}` > primes.txt)
+
+real	0m24.388s
+user	0m24.173s
+sys	0m0.028s
+
+
+
+With 8 threads:
+
+time (./primes `arg="8 7000000" && echo ${arg:-1 10000000}` > primes.txt)
+
+real	0m24.167s
+user	0m24.032s
+sys	0m0.016s
+
+
+With 16 threads:
+
+time (./primes `arg="16 7000000" && echo ${arg:-1 10000000}` > primes.txt)
+
+real	0m24.648s
+user	0m24.391s
+sys	0m0.004s
+
+
+
+With 32 threads:
+time (./primes `arg="32 7000000" && echo ${arg:-1 10000000}` > primes.txt)
+
+real	0m24.095s
+user	0m23.989s
+sys	0m0.016s
+
+
+
+With 64 threads:
+
+time (./primes `arg="64 7000000" && echo ${arg:-1 10000000}` > primes.txt)
+
+real	0m24.209s
+user	0m24.086s
+sys	0m0.016s
+
+
+
+
+QUESTION: After threading is added to threads.cpp, is the order of prime numbers found in primes_threads.txt the same or different than in primes.txt?  Why?
+
+>>After threading is added to threads.cpp, the order of prime numbers found in primes_threads.txt is different than primes.txt. Adding the threads reduce the boundry to search for resulting in faster execution. 
+
+QUESTION: Does adding more threads continue to speed up the program? Do more threads ever slow down the program slightly?  Why or why not?
+
+>> Yes, adding more threads speed up the program. 
+the execution units can process instructions from two threads simultaneously, which results in fewer execution units making it faster.
+
+QUESTION: Does adding more threads increase the "system load", or is it constant regardless of the number of threads?  Why?
+>> Adding more threads makes the system load constant.because in the majority of cases a thread is not busy doing computations, it is waiting for things to happen.
